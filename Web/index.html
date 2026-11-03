@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fffaf4">
+    <meta name="description" content="Find student-friendly meals and get them delivered around UPM Serdang.">
+    <title>Crave UPM — Campus food, delivered</title>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./src/app.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Crave home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg class="brand-chef-hat" viewBox="0 0 24 24" fill="none">
+            <path class="chef-hat-shape" d="M5 14a3.5 3.5 0 0 1-.2-7A4.6 4.6 0 0 1 12 4.3 4.6 4.6 0 0 1 19.2 7a3.5 3.5 0 0 1-.2 7v4H5v-4Z" />
+            <path class="chef-hat-detail" d="M5 14h14M7 17.5v-2m10 2v-2" />
+          </svg>
+        </span>
+        <span>crave<span class="brand-period">.</span></span>
+      </a>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button type="button" data-view="home" aria-current="page">Home</button>
+        <button type="button" data-view="menu" data-restaurants-nav>Restaurants</button>
+        <button type="button" data-category-nav>Categories</button>
+        <button type="button" class="nav-placeholder" data-nav-placeholder>About</button>
+        <button type="button" class="nav-placeholder" data-nav-placeholder>Contact</button>
+      </nav>
+      <div class="header-actions">
+        <button class="header-icon-button" id="header-search-toggle" type="button" aria-label="Search" aria-expanded="false" aria-controls="header-search">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="10.8" cy="10.8" r="6.8" />
+            <path d="m16 16 4.2 4.2" />
+          </svg>
+        </button>
+        <label class="header-search" id="header-search" hidden>
+          <input id="search-input" type="search" placeholder="Search dishes or restaurants" autocomplete="off" aria-label="Search dishes or restaurants">
+        </label>
+        <button class="header-icon-button" id="favorites-button" type="button" aria-label="View favorites" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M20.8 8.8c0 5.1-8.8 10.1-8.8 10.1S3.2 13.9 3.2 8.8A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.4Z" />
+          </svg>
+        </button>
+        <button class="header-icon-button" type="button" data-view="profile" aria-label="Profile">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="8" r="3.5" />
+            <path d="M4.5 20a7.5 7.5 0 0 1 15 0" />
+          </svg>
+        </button>
+        <button class="header-icon-button header-cart" type="button" data-view="cart" aria-label="View cart"
+          aria-haspopup="dialog" aria-controls="cart-dialog" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M3 4h2l2.2 11.1a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 2-1.6L21 8H6" />
+            <circle cx="10" cy="20" r="1" />
+            <circle cx="18" cy="20" r="1" />
+          </svg>
+          <span class="cart-count" id="nav-cart-count" hidden>0</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="app-view" id="view-home" aria-labelledby="hero-title">
+        <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <span class="hero-tag"><span aria-hidden="true">✦</span> LOCAL FAVOURITES · UPM SERDANG</span>
+          <h1 id="hero-title">Good food,<br>right at home<span>.</span></h1>
+          <p>From local favourites to familiar chains, find a meal for every craving around UPM Serdang.</p>
+          <form class="hero-address-form" id="hero-address-form">
+            <label class="hero-address-control">
+              <span class="hero-address-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
+                  <circle cx="12" cy="10" r="2.3" />
+                </svg>
+              </span>
+              <input id="hero-address-input" type="search" aria-label="Enter your campus address"
+                placeholder="Enter your campus address" autocomplete="street-address" maxlength="160" required>
+              <button type="submit">Set address <span aria-hidden="true">→</span></button>
+            </label>
+            <span class="hero-address-hint">Add your address to check your campus delivery area.</span>
+          </form>
+          <div class="hero-benefits" aria-label="Service highlights">
+            <div class="hero-benefit">
+              <span class="hero-benefit-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="6" cy="17" r="2.5" />
+                  <circle cx="18" cy="17" r="2.5" />
+                  <path d="M8.5 17h5l-2.8-7H8l-2 4.5M11 10h3.5l2 4H9M15 7h3" />
+                </svg>
+              </span>
+              <span>Fast delivery</span>
+            </div>
+            <div class="hero-benefit">
+              <span class="hero-benefit-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 4C11 4 5 7.5 5 13a6 6 0 0 0 6 6c5.5 0 9-6 9-15Z" />
+                  <path d="M4 21c2-5 5.5-8.5 11-12" />
+                </svg>
+              </span>
+              <span>Fresh food</span>
+            </div>
+            <div class="hero-benefit">
+              <span class="hero-benefit-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+              </span>
+              <span>Secure payment</span>
+            </div>
+          </div>
+          <div class="hero-meta">
+            <span><span aria-hidden="true">◷</span> 15–30 min</span>
+            <span class="meta-divider"></span>
+            <span><span aria-hidden="true">♧</span> Free delivery over RM25</span>
+          </div>
+          <button class="hero-cta" type="button" data-view="menu">Browse meals <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <span class="hero-spark spark-one">✳</span>
+          <span class="hero-spark spark-two">✦</span>
+          <div class="hero-food">
+            <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&amp;fit=crop&amp;w=800&amp;q=85"
+              alt="" fetchpriority="high" decoding="async">
+          </div>
+          <div class="hero-fries">🍟</div>
+          <span class="hero-sticker">made<br>for campus <span>♥</span></span>
+        </div>
+      </section>
+
+      <section class="home-category-section" aria-labelledby="home-category-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">FIND YOUR FAVORITE</p>
+            <h2 id="home-category-heading">Browse by category</h2>
+          </div>
+        </div>
+        <div class="home-category-list" id="home-category-list" aria-label="Browse menu categories"></div>
+      </section>
+
+      <section class="popular-restaurants-section" aria-labelledby="popular-restaurants-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">FAMOUS LOCAL FAVORITES</p>
+            <h2 id="popular-restaurants-heading">Popular restaurants</h2>
+          </div>
+        </div>
+        <div class="popular-restaurants-grid" id="popular-restaurants-grid"></div>
+      </section>
+
+      <section class="healthy-feature" aria-labelledby="healthy-feature-heading">
+        <div class="healthy-feature-art" aria-hidden="true">🥗</div>
+        <div class="healthy-feature-copy">
+          <p class="eyebrow">FRESH PICKS, DELIVERED</p>
+          <h2 id="healthy-feature-heading">Healthy choices, delivered</h2>
+          <p>Fresh, feel-good meals for your day.</p>
+        </div>
+        <button class="healthy-feature-button" type="button" data-healthy-category="Salads">
+          Explore healthy picks <span aria-hidden="true">→</span>
+        </button>
+      </section>
+
+      <section class="service-benefits" aria-label="Our service benefits">
+        <div class="service-benefit">
+          <span class="service-benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="m13 2-9 12h7l-1 8 10-13h-7l1-7Z" />
+            </svg>
+          </span>
+          <span>Fast delivery</span>
+        </div>
+        <div class="service-benefit">
+          <span class="service-benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z" />
+              <path d="m9 12 2 2 4-4" />
+            </svg>
+          </span>
+          <span>Secure payment</span>
+        </div>
+        <div class="service-benefit">
+          <span class="service-benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 13v-2a8 8 0 0 1 16 0v2" />
+              <rect x="3" y="12" width="4" height="7" rx="2" />
+              <rect x="17" y="12" width="4" height="7" rx="2" />
+              <path d="M17 19a5 5 0 0 1-5 3h-1" />
+            </svg>
+          </span>
+          <span>24/7 Support</span>
+        </div>
+        <div class="service-benefit">
+          <span class="service-benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M20 4C11 4 5 7.5 5 13a6 6 0 0 0 6 6c5.5 0 9-6 9-15Z" />
+              <path d="M4 21c2-5 5.5-8.5 11-12" />
+            </svg>
+          </span>
+          <span>Fresh ingredients</span>
+        </div>
+      </section>
+
+      </section>
+
+      <section class="app-view" id="view-menu" aria-labelledby="menu-page-heading" hidden>
+        <header class="view-heading">
+          <p class="eyebrow">MAKAN AROUND CAMPUS</p>
+          <h1 id="menu-page-heading">Order from local favourites</h1>
+          <p>Choose a restaurant, pick your dishes, and add them to your cart.</p>
+          <p class="menu-demo-note">Sample menus and prices only — orders are not sent to restaurants.</p>
+        </header>
+
+        <section class="category-section" id="category-section" aria-label="Browse food categories">
+        <div class="section-heading">
+          <div><p class="eyebrow">MAKAN AROUND CAMPUS</p><h2>What are you craving?</h2></div>
+          <p class="results-note" id="results-note">Popular Malaysian restaurant picks</p>
+        </div>
+        <div class="category-list" id="category-list" role="group" aria-label="Filter by category"></div>
+        </section>
+
+        <section class="menu-section menu-page-section" id="menu" aria-labelledby="menu-heading">
+          <div class="menu-heading">
+            <div><p class="eyebrow">SERDANG CAMPUS PICKS</p><h2 id="menu-heading">All the good eats</h2></div>
+            <div class="menu-controls">
+              <label class="menu-select-control">Restaurant
+                <select id="restaurant-select" aria-label="Filter dishes by restaurant"></select>
+              </label>
+              <label class="sort-control">Sort by
+                <select id="sort-select" aria-label="Sort dishes">
+                  <option value="popular">Most popular</option>
+                  <option value="rating">Top rated</option>
+                  <option value="price-low">Price: low to high</option>
+                  <option value="price-high">Price: high to low</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div class="food-grid" id="food-grid" aria-live="polite"></div>
+        </section>
+        <section class="special-section" aria-labelledby="special-heading">
+          <div class="special-heading">
+            <div>
+              <p class="eyebrow">A LITTLE SOMETHING FOR YOU</p>
+              <h2 id="special-heading">More to love <span aria-hidden="true">♡</span></h2>
+              <p class="special-description" id="special-description">A few Malaysian restaurant picks we think you’ll love.</p>
+            </div>
+            <button class="special-browse-link" type="button" data-view="menu">Explore menu <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="special-grid" id="special-grid"></div>
+        </section>
+      </section>
+
+      <section class="app-view location-view" id="view-location" aria-labelledby="location-heading" hidden>
+        <header class="view-heading">
+          <p class="eyebrow">DELIVERY DETAILS</p>
+          <h1 id="location-heading">Where should we deliver?</h1>
+          <p>Add your UPM residence or campus drop-off details.</p>
+        </header>
+        <form class="location-form" id="location-form">
+          <label class="checkout-field">Delivery area
+            <select id="address-area" name="area" required>
+              <option value="">Choose your campus area</option>
+              <option>Kolej Kediaman</option>
+              <option>Fakulti &amp; lecture halls</option>
+              <option>Perpustakaan Sultan Abdul Samad</option>
+              <option>Pusat Sukan UPM</option>
+              <option>Other UPM campus location</option>
+            </select>
+          </label>
+          <label class="checkout-field">Building, college or street address
+            <input name="address" required maxlength="160" autocomplete="street-address" placeholder="e.g. Kolej Tun Dr Ismail">
+          </label>
+          <div class="location-form-row">
+            <label class="checkout-field">Block / house
+              <input name="block" maxlength="60" placeholder="e.g. Block C">
+            </label>
+            <label class="checkout-field">Room / unit
+              <input name="unit" maxlength="60" placeholder="e.g. Room 3-12">
+            </label>
+          </div>
+          <label class="checkout-field">Delivery instructions <span class="optional-label">Optional</span>
+            <textarea name="instructions" rows="3" maxlength="240" placeholder="Gate, landmark or where to meet you"></textarea>
+          </label>
+          <button class="checkout-button" type="submit">Save delivery address <span aria-hidden="true">→</span></button>
+        </form>
+        <div class="saved-address-card" id="saved-address-card"></div>
+      </section>
+
+      <dialog class="cart-drawer" id="cart-dialog" aria-labelledby="cart-title">
+        <header class="cart-drawer-heading">
+          <div>
+            <p class="eyebrow">READY WHEN YOU ARE</p>
+            <h1 id="cart-title">Your cart <span id="cart-title-count">(0)</span></h1>
+          </div>
+          <button class="dialog-close" id="close-cart" type="button" aria-label="Close cart">×</button>
+        </header>
+        <div class="cart-page-layout">
+          <section class="cart-order-panel" aria-labelledby="cart-orders-heading">
+            <div class="cart-panel-heading">
+              <h2 id="cart-orders-heading">Items</h2>
+              <button class="text-button" type="button" data-view="menu">Add more items</button>
+            </div>
+            <div class="cart-items" id="cart-items" aria-live="polite"></div>
+            <div class="cart-empty" id="cart-empty">
+              <span class="empty-illustration" aria-hidden="true">🥡</span>
+              <strong>Your cart is waiting</strong>
+              <p>Pick something delicious from the menu.</p>
+              <button class="checkout-button" type="button" data-view="menu">Browse the menu</button>
+            </div>
+            <div class="cart-summary" id="cart-summary" hidden>
+              <div class="summary-line"><span>Subtotal</span><span id="cart-subtotal">RM0.00</span></div>
+              <div class="summary-line"><span>Delivery</span><span id="cart-delivery">RM2.50</span></div>
+              <div class="summary-total"><strong>Total</strong><strong id="cart-total">RM0.00</strong></div>
+              <p class="delivery-note" id="delivery-note">You’re RM25.00 away from free delivery</p>
+              <button class="checkout-button place-order-button" id="checkout-button" type="button">
+                Proceed to checkout <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </section>
+        </div>
+        <section class="order-history-section" aria-labelledby="order-history-heading">
+          <div class="cart-panel-heading"><h2 id="order-history-heading">Previous orders</h2></div>
+          <div id="order-history" class="order-history"></div>
+        </section>
+      </dialog>
+
+      <section class="app-view profile-view" id="view-profile" aria-labelledby="profile-page-heading" hidden>
+        <header class="view-heading">
+          <p class="eyebrow">YOUR ACCOUNT</p>
+          <h1 id="profile-page-heading">Your profile</h1>
+          <p>Manage your details for campus orders.</p>
+        </header>
+        <form class="location-form profile-page-form" id="profile-page-form">
+          <label class="checkout-field">Your name
+            <input name="name" autocomplete="name" required maxlength="80" placeholder="e.g. Aina">
+          </label>
+          <label class="checkout-field">Email address <span class="optional-label">Optional</span>
+            <input name="email" type="email" autocomplete="email" maxlength="120" placeholder="you@example.com">
+          </label>
+          <label class="checkout-field">Phone number <span class="optional-label">Optional</span>
+            <input name="phone" type="tel" autocomplete="tel" maxlength="20" pattern="[0-9+() -]{8,20}" placeholder="e.g. 012 345 6789">
+          </label>
+          <p class="demo-disclaimer">Your profile is saved only in this browser.</p>
+          <button class="checkout-button" type="submit">Save profile <span aria-hidden="true">→</span></button>
+        </form>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-main">
+        <section class="footer-brand-column" aria-label="About Crave">
+          <a class="brand footer-brand" href="#" aria-label="Crave home">
+            <span class="brand-mark" aria-hidden="true">
+              <svg class="brand-chef-hat" viewBox="0 0 24 24" fill="none">
+                <path class="chef-hat-shape" d="M5 14a3.5 3.5 0 0 1-.2-7A4.6 4.6 0 0 1 12 4.3 4.6 4.6 0 0 1 19.2 7a3.5 3.5 0 0 1-.2 7v4H5v-4Z" />
+                <path class="chef-hat-detail" d="M5 14h14M7 17.5v-2m10 2v-2" />
+              </svg>
+            </span>
+            <span>crave<span class="brand-period">.</span></span>
+          </a>
+          <p class="footer-slogan">Good food, good mood. Bringing your favorite campus bites right to you.</p>
+          <div class="footer-socials" aria-label="Social media">
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.8" r="0.8" />
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.3v3h2.8v8h3.4Z" />
+              </svg>
+            </a>
+            <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M16.6 3c.3 2 1.4 3.2 3.4 3.4v3.2a8.6 8.6 0 0 1-3.4-.9v6.6a6.1 6.1 0 1 1-6.1-6.1c.4 0 .8 0 1.2.1v3.4a2.8 2.8 0 1 0 1.6 2.5V3h3.3Z" />
+              </svg>
+            </a>
+            <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M23 7.1a3 3 0 0 0-2.1-2.2C19 4.4 12 4.4 12 4.4s-7 0-8.9.5A3 3 0 0 0 1 7.1 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.9 3 3 0 0 0 2.1 2.2c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.2 31 31 0 0 0 .5-4.9 31 31 0 0 0-.5-4.9ZM9.7 15.4V8.6l6 3.4-6 3.4Z" />
+              </svg>
+            </a>
+            <a href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3L12 14.6 5.5 22H2.3l7.3-8.4L1.8 2h6.5l4.5 6.7L18.9 2Zm-1.1 18h1.7L7.3 3.9H5.5L17.8 20Z" />
+              </svg>
+            </a>
+          </div>
+        </section>
+
+        <nav class="footer-nav" aria-label="Quick links">
+          <h2>Quick links</h2>
+          <button type="button" data-view="home">Home</button>
+          <button type="button" data-view="menu" data-restaurants-nav>Restaurants</button>
+          <button type="button" data-view="cart">Your cart</button>
+          <button type="button" data-view="profile">Your profile</button>
+        </nav>
+
+        <nav class="footer-nav" aria-label="Food categories">
+          <h2>Categories</h2>
+          <button type="button" data-footer-category="Burger">Burgers</button>
+          <button type="button" data-footer-category="Pizza">Pizza</button>
+          <button type="button" data-footer-category="Sushi">Sushi</button>
+          <button type="button" data-footer-category="Salads">Salads</button>
+          <button type="button" data-footer-category="Desserts">Desserts</button>
+          <button type="button" data-footer-category="Drinks">Drinks</button>
+        </nav>
+
+        <section class="footer-newsletter" aria-labelledby="footer-newsletter-heading">
+          <h2 id="footer-newsletter-heading">Subscribe to our newsletter</h2>
+          <p>Get food news and fresh deals in your inbox.</p>
+          <form id="newsletter-form">
+            <label class="sr-only" for="newsletter-email">Your email address</label>
+            <input id="newsletter-email" name="email" type="email" autocomplete="email"
+              placeholder="Enter your email address" maxlength="120" required>
+            <button type="submit" aria-label="Subscribe">Subscribe <span aria-hidden="true">→</span></button>
+          </form>
+          <p class="newsletter-note">Demo form only; email addresses are not sent or stored.</p>
+        </section>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span id="copyright-year"></span> Crave. All rights reserved.</p>
+        <p>Demo menu · Restaurant availability may vary</p>
+      </div>
+    </footer>
+    <dialog class="checkout-dialog item-dialog" id="item-dialog" aria-labelledby="item-dialog-title">
+      <form class="checkout-form" id="item-form">
+        <input type="hidden" name="quantity" value="1">
+        <div class="checkout-dialog-heading">
+          <div><p class="eyebrow">MAKE IT YOURS</p><h2 id="item-dialog-title">Customize your dish</h2></div>
+          <button class="dialog-close" id="close-item" type="button" aria-label="Close customization">×</button>
+        </div>
+        <div class="custom-dish-summary">
+          <span id="custom-dish-emoji" aria-hidden="true">🍽️</span>
+          <div><strong id="custom-dish-name"></strong><p id="custom-dish-description"></p></div>
+        </div>
+        <fieldset class="option-group">
+          <legend>Choose your sauce <span>Pick one</span></legend>
+          <div class="option-list" id="sauce-options"></div>
+        </fieldset>
+        <fieldset class="option-group">
+          <legend>Add toppings <span>Choose any</span></legend>
+          <div class="option-list" id="topping-options"></div>
+        </fieldset>
+        <div class="custom-dialog-bottom">
+          <div class="custom-quantity">
+            <button type="button" id="quantity-decrease" aria-label="Decrease quantity">−</button>
+            <output id="custom-quantity" aria-live="polite">1</output>
+            <button type="button" id="quantity-increase" aria-label="Increase quantity">+</button>
+          </div>
+          <strong id="custom-total">RM0.00</strong>
+        </div>
+        <button class="checkout-button checkout-submit" type="submit">Add to cart <span aria-hidden="true">→</span></button>
+      </form>
+    </dialog>
+
+    <dialog class="checkout-dialog" id="checkout-dialog" aria-labelledby="checkout-title">
+      <form class="checkout-form" id="checkout-form">
+        <div class="checkout-dialog-heading">
+          <div><p class="eyebrow">ORDER FLOW</p><h2 id="checkout-title">Checkout</h2></div>
+          <button class="dialog-close" id="close-checkout" type="button" aria-label="Close checkout">×</button>
+        </div>
+        <ol class="checkout-progress" aria-label="Checkout progress">
+          <li data-checkout-progress="details" aria-current="step"><span>1</span> Checkout</li>
+          <li data-checkout-progress="payment"><span>2</span> Payment</li>
+          <li data-checkout-progress="tracking"><span>3</span> Track order</li>
+          <li data-checkout-progress="placed"><span>4</span> Order placed</li>
+        </ol>
+        <section class="checkout-step" id="checkout-details-step" aria-labelledby="checkout-title">
+          <p class="checkout-intro">Confirm your contact and delivery details.</p>
+          <label class="checkout-field">Your name
+            <input name="name" autocomplete="name" required maxlength="80" placeholder="e.g. Aina">
+          </label>
+          <label class="checkout-field">Phone number
+            <input name="phone" type="tel" autocomplete="tel" required minlength="8" maxlength="20" pattern="[0-9+() -]{8,20}" placeholder="e.g. 012 345 6789">
+          </label>
+          <div class="checkout-address-summary" id="checkout-address-summary"></div>
+          <button class="text-button checkout-edit-address" id="checkout-edit-address" type="button">Edit delivery address</button>
+          <div class="checkout-review">
+            <span><span id="checkout-item-count">0 items</span></span>
+            <strong id="checkout-total">RM0.00</strong>
+          </div>
+          <button class="checkout-button checkout-submit" id="continue-to-payment" type="button">
+            Continue to payment <span aria-hidden="true">→</span>
+          </button>
+        </section>
+        <section class="checkout-step" id="checkout-payment-step" aria-labelledby="payment-step-heading" hidden>
+          <h3 id="payment-step-heading">Choose a demo payment method</h3>
+          <p class="checkout-intro">This is a demo. No payment details are collected and no money is charged.</p>
+          <fieldset class="payment-methods">
+            <legend>Payment method</legend>
+            <label><input type="radio" name="paymentMethod" value="Pay on delivery (demo)" required> Pay on delivery <span>Demo</span></label>
+            <label><input type="radio" name="paymentMethod" value="Online payment (demo)" required> Online payment <span>Demo</span></label>
+          </fieldset>
+          <div class="checkout-review">
+            <span>Total to pay</span>
+            <strong id="payment-total">RM0.00</strong>
+          </div>
+          <div class="checkout-step-actions">
+            <button class="text-button" id="back-to-checkout" type="button">Back</button>
+            <button class="checkout-button checkout-submit" type="submit">Continue to tracking <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+        <section class="checkout-step checkout-tracking-step" id="checkout-tracking-step" aria-labelledby="tracking-title" aria-live="polite" hidden>
+          <div id="tracking-content"></div>
+          <button class="checkout-button checkout-submit" id="close-tracking" type="button">Done</button>
+        </section>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
